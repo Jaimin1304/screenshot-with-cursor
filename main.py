@@ -15,11 +15,6 @@ def capture_screenshot_with_cursor():
     # Capture the screen using pyautogui
     screenshot = pyautogui.screenshot()
     
-    # Save current cursor state
-    cursor_state = get_current_cursor()
-    print(f'current cursor state: {cursor_state}')
-
-    # Convert the screenshot to a numpy array (which OpenCV uses)
     img = np.array(screenshot)
 
     # Convert RGB to BGR (OpenCV uses BGR by default)
@@ -28,8 +23,18 @@ def capture_screenshot_with_cursor():
     # Get the current position of the mouse cursor using pyautogui
     cursor_x, cursor_y = pyautogui.position()
 
-    # Draw a simple cursor on the screenshot (a small white circle)
-    cv2.circle(img, (cursor_x, cursor_y), 10, (255, 255, 255), -1)
+    # Record the current cursor state
+    cursor_state = get_current_cursor()
+    print(f"current cursor state: {cursor_state}")
+
+    # Convert the screenshot to a numpy array (which OpenCV uses)
+
+    # Draw a white circle to represent the cursor
+    cursor_radius = 7  # You can adjust the size of the circle here
+    cursor_color = (255, 255, 255)  # White color
+    cursor_thickness = -1  # Filled circle
+
+    cv2.circle(img, (cursor_x, cursor_y), cursor_radius, cursor_color, cursor_thickness)
 
     # Generate the base filename using the current timestamp
     timestamp = time.strftime("%Y%m%d-%H%M%S")
