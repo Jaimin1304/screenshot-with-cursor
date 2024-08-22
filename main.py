@@ -4,6 +4,7 @@ import pyautogui
 import keyboard
 import os
 import time
+from cursor_state import get_current_cursor
 
 
 def capture_screenshot_with_cursor():
@@ -13,6 +14,10 @@ def capture_screenshot_with_cursor():
 
     # Capture the screen using pyautogui
     screenshot = pyautogui.screenshot()
+    
+    # Save current cursor state
+    cursor_state = get_current_cursor()
+    print(f'current cursor state: {cursor_state}')
 
     # Convert the screenshot to a numpy array (which OpenCV uses)
     img = np.array(screenshot)
